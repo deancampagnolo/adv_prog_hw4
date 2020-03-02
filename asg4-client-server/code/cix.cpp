@@ -38,6 +38,7 @@ void cix_help() {
 }
 
 void cix_ls (client_socket& server) {
+   
    cix_header header;
    header.command = cix_command::LS;
    outlog << "sending header " << header << endl;
@@ -65,8 +66,7 @@ void usage() {
 
 int main (int argc, char** argv) {
    outlog.execname (basename (argv[0]));
-   cout << "hi"<<endl;
-   outlog << "starting" << endl;
+   outlog << "starting cix" << endl;
    vector<string> args (&argv[1], &argv[argc]);
    if (args.size() > 2) usage();
    string host = get_cix_server_host (args, 0);

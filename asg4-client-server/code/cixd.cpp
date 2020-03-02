@@ -120,9 +120,8 @@ void signal_action (int signal, void (*handler) (int)) {
 
 
 int main (int argc, char** argv) {
-   cout<<"hi"<<endl;
    outlog.execname (basename (argv[0]));
-   outlog << "starting" << endl;
+   outlog << "starting cixd" << endl;
    vector<string> args (&argv[1], &argv[argc]);
    signal_action (SIGCHLD, signal_handler);
    in_port_t port = get_cix_server_port (args, 0);

@@ -1,7 +1,9 @@
 #!/bin/bash
 
-cd ../..
+cd ../../..
 git pull
 cd asg4-client-server/code
 make
+mv cixd cxid_directory
+cd cxid_directory
 valgrind cixd
