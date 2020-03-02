@@ -65,6 +65,7 @@ void usage() {
 
 int main (int argc, char** argv) {
    outlog.execname (basename (argv[0]));
+   cout << "hi"<<endl;
    outlog << "starting" << endl;
    vector<string> args (&argv[1], &argv[argc]);
    if (args.size() > 2) usage();

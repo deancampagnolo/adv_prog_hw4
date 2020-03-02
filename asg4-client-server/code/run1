@@ -4,4 +4,4 @@ cd ../..
 git pull
 cd asg4-client-server/code
 make
-
+valgrind cixd
