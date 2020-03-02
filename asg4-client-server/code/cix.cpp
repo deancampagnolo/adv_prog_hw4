@@ -38,10 +38,11 @@ void cix_help() {
 }
 
 void cix_ls (client_socket& server) {
-   
+
    cix_header header;
    header.command = cix_command::LS;
    outlog << "sending header " << header << endl;
+   outlog << sizeof header << endl;
    send_packet (server, &header, sizeof header);
    recv_packet (server, &header, sizeof header);
    outlog << "received header " << header << endl;
@@ -56,6 +57,13 @@ void cix_ls (client_socket& server) {
       buffer[host_nbytes] = '\0';
       cout << buffer.get();
    }
+}
+
+void cix_get (client_socket& server) {
+   cix_header header;
+   header.command = cix_command::GET;
+   outlog << "sending header " << header << endl;
+   send_packet (server, &header, sizeof header);
 }
 
 
@@ -93,6 +101,9 @@ int main (int argc, char** argv) {
                break;
             case cix_command::LS:
                cix_ls (server);
+               break;
+            case cix_command::GET:
+               cix_get (server);
                break;
             default:
                outlog << line << ": invalid command" << endl;
