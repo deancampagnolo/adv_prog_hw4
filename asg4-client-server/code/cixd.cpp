@@ -120,6 +120,7 @@ void signal_action (int signal, void (*handler) (int)) {
 
 
 int main (int argc, char** argv) {
+   cout<<"hi"<<endl;
    outlog.execname (basename (argv[0]));
    outlog << "starting" << endl;
    vector<string> args (&argv[1], &argv[argc]);
