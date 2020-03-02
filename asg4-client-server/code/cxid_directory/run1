@@ -6,4 +6,5 @@ cd asg4-client-server/code
 make
 mv cixd cxid_directory
 cd cxid_directory
-valgrind cixd 5001
+valgrind cixd localhost 5001
+

@@ -4,5 +4,5 @@ cd ../..
 git pull
 cd asg4-client-server/code
 make
-valgrind cix localhost 5001
+valgrind cix 5001
 
