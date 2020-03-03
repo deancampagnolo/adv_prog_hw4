@@ -81,7 +81,7 @@ void cix_get (client_socket& server, string name) {
    outlog << "received " << header.nbytes << " bytes" << endl;
    the_buffer[header.nbytes] = '\0';
    ofstream the_out_stream (header.filename, ofstream::binary);
-   //the_out_stream.write(the_buffer, header.nbytes);
+   the_out_stream.write(the_buffer, header.nbytes);
    the_out_stream.close();
 }
 
