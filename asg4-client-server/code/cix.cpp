@@ -96,7 +96,7 @@ void cix_rm (client_socket& server, string name) {
    outlog << "received header "<< header<< endl;
 
    if (header.command == cix_command::ACK) { 
-      outlog << "File delted" << endl;
+      outlog << "File deleted" << endl;
    } else {
       outlog << "File not deleted" << endl;
    }
