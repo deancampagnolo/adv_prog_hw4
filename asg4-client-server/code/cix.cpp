@@ -76,6 +76,7 @@ void cix_get (client_socket& server, string name) {
       return;
    }
 
+   outlog << "hmm past the FILE?" << endl;
    char the_buffer[header.nbytes + 1];
    recv_packet (server, the_buffer, header.nbytes);
    outlog << "received " << header.nbytes << " bytes" << endl;
