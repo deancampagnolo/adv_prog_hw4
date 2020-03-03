@@ -22,6 +22,7 @@ unordered_map<string,cix_command> command_map {
    {"exit", cix_command::EXIT},
    {"help", cix_command::HELP},
    {"ls"  , cix_command::LS  },
+   {"get" , cix_command::GET },
 };
 
 static const char help[] = R"||(
