@@ -68,7 +68,9 @@ void reply_get (accepted_socket& client_sock, cix_header& header) {
    header.command = cix_command::FILEOUT;
    header.nbytes = len;
    send_packet (client_sock, &header, sizeof header);
+   if (len != 0) {
    send_packet (client_sock, the_buffer, len);
+   }
 
 
    cout << "we here?" << endl;
