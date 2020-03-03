@@ -12,6 +12,7 @@ using namespace std;
 #include "protocol.h"
 #include "logstream.h"
 #include "sockets.h"
+#include "fstream"
 
 logstream outlog (cout);
 struct cix_exit: public exception {};
@@ -49,6 +50,18 @@ void reply_ls (accepted_socket& client_sock, cix_header& header) {
 
 void reply_get (accepted_socket& client_sock, cix_header& header) {
    outlog << "at reply_get" << endl;
+   std::ifstream the_stream (header.filename, std::ifstream::binary);
+
+   if (!the_stream) {
+      header.command = cix_command::NAK;
+      send_packet (client_sock, &header, sizeof header);
+      the_stream.close();
+      return;
+   }
+   cout << the_stream.tellg() << endl;
+   the_stream.seekg(0,the_stream.end);
+   cout << the_stream.tellg() << endl;
+
 }
 
 void run_server (accepted_socket& client_sock) {
