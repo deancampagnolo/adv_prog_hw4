@@ -60,9 +60,12 @@ void cix_ls (client_socket& server) {
    }
 }
 
-void cix_get (client_socket& server) {
+void cix_get (client_socket& server, string name) {
    cix_header header;
    header.command = cix_command::GET;
+   cout << header.filename << endl;
+   strcpy(header.filename, name.c_str);
+   cout << header.filename << endl;
    outlog << "sending header " << header << endl;
    send_packet (server, &header, sizeof header);
 }
@@ -88,9 +91,19 @@ int main (int argc, char** argv) {
       for (;;) {
          string line;
          getline (cin, line);
+         auto num = line.find(" ");
+         string cmd_s;
+         string arg;
+         if (num != string::npos) {
+            cmd_s = line.substr(0, num);
+            arg = line.substr(num+1);
+         } else {
+            cmd_s = line;
+         }
+
          if (cin.eof()) throw cix_exit();
          outlog << "command " << line << endl;
-         const auto& itor = command_map.find (line);
+         const auto& itor = command_map.find (cmd_s);
          cix_command cmd = itor == command_map.end()
                          ? cix_command::ERROR : itor->second;
          switch (cmd) {
@@ -104,7 +117,7 @@ int main (int argc, char** argv) {
                cix_ls (server);
                break;
             case cix_command::GET:
-               cix_get (server);
+               cix_get (server, arg);
                break;
             default:
                outlog << line << ": invalid command" << endl;

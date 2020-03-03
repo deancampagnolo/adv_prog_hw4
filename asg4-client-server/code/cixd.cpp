@@ -30,7 +30,6 @@ void reply_ls (accepted_socket& client_sock, cix_header& header) {
    char buffer[0x1000];
    for (;;) {
       char* rc = fgets (buffer, sizeof buffer, ls_pipe);
-      outlog << rc << endl;
       if (rc == nullptr) break;
       ls_output.append (buffer);
    }
