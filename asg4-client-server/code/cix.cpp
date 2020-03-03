@@ -14,6 +14,7 @@ using namespace std;
 #include "protocol.h"
 #include "logstream.h"
 #include "sockets.h"
+#include "fstream"
 
 logstream outlog (cout);
 struct cix_exit: public exception {};
@@ -68,6 +69,20 @@ void cix_get (client_socket& server, string name) {
    send_packet (server, &header, sizeof header);
    recv_packet (server, &header, sizeof header);
    outlog << "received header "<< header<< endl;
+
+   if (header.command == cix_command::NAK) {
+      outlog << "Did not receive FILE" << endl;
+      return;
+   }
+   char the_buffer[header.nbytes + 1];
+   recv_packet (server, the_buffer, header.nbytes);
+   outlog << "received " << header.nbytes << " bytes" << endl;
+   the_buffer[header.nbytes] = '\0';
+   ofstream the_out_stream (header.filename, ofstream::binary);
+   the_out_stream.write(the_buffer, header.nbytes);
+   the_out_stream.close();
+
+
 }
 
 
