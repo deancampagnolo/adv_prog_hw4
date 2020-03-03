@@ -61,6 +61,7 @@ void reply_get (accepted_socket& client_sock, cix_header& header) {
    cout << the_stream.tellg() << endl;
    the_stream.seekg(0,the_stream.end);
    cout << the_stream.tellg() << endl;
+   cout << "we here?" << endl;
 
 }
 
