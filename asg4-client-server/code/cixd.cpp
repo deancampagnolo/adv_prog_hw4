@@ -58,10 +58,22 @@ void reply_get (accepted_socket& client_sock, cix_header& header) {
       the_stream.close();
       return;
    }
-   cout << the_stream.tellg() << endl;
+
    the_stream.seekg(0,the_stream.end);
-   cout << the_stream.tellg() << endl;
+   int len = the_stream.tellg();
+   the_stream.seekg(0,the_stream.beg);
+   char the_buffer[len] ;
+
+   the_stream.read(the_buffer,len);
+
+   header.command = cix_command::FILEOUT;
+   header.nbytes = len;
+   send_packet (client_sock, &header, sizeof header);
+   send_packet (client_sock, the_buffer, len);
+
+
    cout << "we here?" << endl;
+   the_stream.close();
 
 }
 
