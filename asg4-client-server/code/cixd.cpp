@@ -17,7 +17,8 @@ logstream outlog (cout);
 struct cix_exit: public exception {};
 
 void reply_ls (accepted_socket& client_sock, cix_header& header) {
-   const char* ls_cmd = "ls -l 2>&1";
+   //const char* ls_cmd = "ls -l 2>&1";
+   const char* ls_cmd = "ls -l";
    FILE* ls_pipe = popen (ls_cmd, "r");
    if (ls_pipe == NULL) { 
       outlog << "ls -l: popen failed: " << strerror (errno) << endl;
