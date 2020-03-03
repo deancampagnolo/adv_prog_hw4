@@ -84,6 +84,17 @@ void cix_get (client_socket& server, string name) {
    the_out_stream.close();
 }
 
+
+void cix_rm (client_socket& server, string name) {
+   cix_header header;
+   header.command = cix_command::RM;
+   strcpy(header.filename, name.c_str());
+   outlog << "sending header " << header << endl;
+   send_packet (server, &header, sizeof header);
+   recv_packet (server, &header, sizeof header);
+   outlog << "received header "<< header<< endl;
+}
+
 
 void usage() {
    cerr << "Usage: " << outlog.execname() << " [host] [port]" << endl;
@@ -134,7 +145,8 @@ int main (int argc, char** argv) {
                cix_get (server, arg);
                break;
             case cix_command::RM:
-               cix_get (server, arg);
+               cix_rm (server, arg);
+               break;
             
             default:
                outlog << line << ": invalid command" << endl;

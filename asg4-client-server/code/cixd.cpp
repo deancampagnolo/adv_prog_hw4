@@ -49,7 +49,6 @@ void reply_ls (accepted_socket& client_sock, cix_header& header) {
 }
 
 void reply_get (accepted_socket& client_sock, cix_header& header) {
-   outlog << "at reply_get" << endl;
    std::ifstream the_stream (header.filename, std::ifstream::binary);
 
    if (!the_stream) {
@@ -76,6 +75,14 @@ void reply_get (accepted_socket& client_sock, cix_header& header) {
    the_stream.close();
 
 }
+
+
+void reply_rm (accepted_socket& client_sock, cix_header& header) {
+   header.command = unlink(header.filename) == 0 ? 
+      cix_command::ACK : cix_command::NAK;
+   send_packet(client_sock, &header, sizeof header);
+}
+
 
 void run_server (accepted_socket& client_sock) {
    outlog.execname (outlog.execname() + "-server");
@@ -93,6 +100,11 @@ void run_server (accepted_socket& client_sock) {
             case cix_command::GET:
                reply_get (client_sock, header);
                break;
+
+            case cix_command::RM:
+               reply_rm (client_sock, header);
+               break;
+
             default:
                outlog << "invalid client header:" << header << endl;
                break;
