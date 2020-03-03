@@ -62,7 +62,7 @@ void reply_get (accepted_socket& client_sock, cix_header& header) {
    the_stream.seekg(0,the_stream.end);
    int len = the_stream.tellg();
    the_stream.seekg(0,the_stream.beg);
-   char the_buffer[len] ;
+   char the_buffer[len];
 
    the_stream.read(the_buffer,len);
 

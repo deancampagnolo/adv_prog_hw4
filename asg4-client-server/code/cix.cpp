@@ -70,10 +70,11 @@ void cix_get (client_socket& server, string name) {
    recv_packet (server, &header, sizeof header);
    outlog << "received header "<< header<< endl;
 
-   if (header.command == cix_command::NAK) {
+   if (header.command != cix_command::FILEOUT) {
       outlog << "Did not receive FILE" << endl;
       return;
    }
+
    char the_buffer[header.nbytes + 1];
    recv_packet (server, the_buffer, header.nbytes);
    outlog << "received " << header.nbytes << " bytes" << endl;
@@ -81,8 +82,6 @@ void cix_get (client_socket& server, string name) {
    ofstream the_out_stream (header.filename, ofstream::binary);
    the_out_stream.write(the_buffer, header.nbytes);
    the_out_stream.close();
-
-
 }
 
 
