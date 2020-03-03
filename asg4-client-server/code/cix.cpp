@@ -65,8 +65,8 @@ void cix_get (client_socket& server, string name) {
    header.command = cix_command::GET;
    cout << header.filename << "h" << endl;
    strcpy(header.filename, name.c_str());
-   cout << header.filename << endl;
-   outlog << "sending header " << "i" << header << endl;
+   cout << header.filename << "i" << endl;
+   outlog << "sending header " << header << endl;
    send_packet (server, &header, sizeof header);
 }
 
