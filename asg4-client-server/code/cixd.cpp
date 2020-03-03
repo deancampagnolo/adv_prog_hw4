@@ -42,6 +42,7 @@ void reply_ls (accepted_socket& client_sock, cix_header& header) {
    header.nbytes = htonl (ls_output.size());
    memset (header.filename, 0, FILENAME_SIZE);
    outlog << "sending header " << header << endl;
+   outlog << sizeof header << endl;
    send_packet (client_sock, &header, sizeof header);
    send_packet (client_sock, ls_output.c_str(), ls_output.size());
    outlog << "sent " << ls_output.size() << " bytes" << endl;
