@@ -133,6 +133,9 @@ int main (int argc, char** argv) {
             case cix_command::GET:
                cix_get (server, arg);
                break;
+            case cix_command::RM:
+               cix_get (server, arg);
+            
             default:
                outlog << line << ": invalid command" << endl;
                break;
