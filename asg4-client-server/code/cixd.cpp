@@ -42,12 +42,14 @@ void reply_ls (accepted_socket& client_sock, cix_header& header) {
    header.nbytes = htonl (ls_output.size());
    memset (header.filename, 0, FILENAME_SIZE);
    outlog << "sending header " << header << endl;
-   outlog << sizeof header << endl;
    send_packet (client_sock, &header, sizeof header);
    send_packet (client_sock, ls_output.c_str(), ls_output.size());
    outlog << "sent " << ls_output.size() << " bytes" << endl;
 }
 
+void reply_get (accepted_socket& client_sock, cix_header& header) {
+   outlog << "at reply_get" << endl;
+}
 
 void run_server (accepted_socket& client_sock) {
    outlog.execname (outlog.execname() + "-server");
@@ -60,6 +62,10 @@ void run_server (accepted_socket& client_sock) {
          switch (header.command) {
             case cix_command::LS: 
                reply_ls (client_sock, header);
+               break;
+            
+            case cix_command::GET:
+               reply_get (client_sock, header);
                break;
             default:
                outlog << "invalid client header:" << header << endl;
