@@ -24,6 +24,7 @@ unordered_map<string,cix_command> command_map {
    {"help", cix_command::HELP},
    {"ls"  , cix_command::LS  },
    {"get" , cix_command::GET },
+   {"rm"  , cix_command::RM},
 };
 
 static const char help[] = R"||(
