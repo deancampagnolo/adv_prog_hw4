@@ -17,8 +17,7 @@ logstream outlog (cout);
 struct cix_exit: public exception {};
 
 void reply_ls (accepted_socket& client_sock, cix_header& header) {
-   //const char* ls_cmd = "ls -l 2>&1";
-   const char* ls_cmd = "ls -l";
+   const char* ls_cmd = "ls -l 2>&1";
    FILE* ls_pipe = popen (ls_cmd, "r");
    if (ls_pipe == NULL) { 
       outlog << "ls -l: popen failed: " << strerror (errno) << endl;
@@ -31,6 +30,7 @@ void reply_ls (accepted_socket& client_sock, cix_header& header) {
    char buffer[0x1000];
    for (;;) {
       char* rc = fgets (buffer, sizeof buffer, ls_pipe);
+      outlog << rc << endl;
       if (rc == nullptr) break;
       ls_output.append (buffer);
    }
